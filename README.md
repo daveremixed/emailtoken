@@ -55,6 +55,10 @@ Now view your token
 - Invalid Email
 - Omit usageId
 - Omit appSecret
+- While the app is running, goto: http://localhost/h2-console . Change the JDBC url to  'jdbc:h2:mem:testdb'.   Connect to the database and run your POST requests, now you can view your persisted data inthe H2 web console.  
+```
+SELECT * FROM TOKENS
+```
 
 ## Discusion
 Application uses Maven, SpringBoot, the embeded in memory database w/JPA for persistence.  I added the Application Secret so tokens / redemptions may only be viewed by the creator.  The AppSecret is hashed and stored as a SHA-1 via the Apache Codec library, they are not persisted in plain text.  For security a service like this should only run HTTPS/TLS1.2 - but requirements asked for HTTP.
