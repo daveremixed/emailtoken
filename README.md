@@ -19,22 +19,55 @@ You're building an awesome webapp. You regularly send emails to users of this we
 1. A git repository containing all the code needed to run the microservice.
 2. Instructions for installing and running the microservice and test suite.
 
-Instructions:
+## Instructions
 1. Import the project into IntelliJ from external sources and run the detected configuration:
    [Main class: com.gonzobeans.emailtoken.Application]
 2. Install Postman and try the service:
-
-  a. 
+```
   REQUEST 
   [POST] http://localhost:80/token
     {
-	      "emailAddress": "user@example.com",
-	      "tokenId": "123",
-	      "applicationSecret": "AnyStringYouWant"
+	"emailAddress": "user@example.com",
+	"usageId": "welcome-email-v21",
+	"applicationSecret": "AnyStringYouWant"
     }
    RESPONSE:
     {
         "emailAddress": "dave@teleport.com",
-        "usageId": "123",
+        "usageId": "welcome-email-v21",
         "token": "fbc3fe93749a49fd8139eacf1241be8c"
     }
+```
+Now view your token
+```
+  REQUEST 
+  [GET] http://localhost:80/token/{token}
+  [HEADER] applicationSecret = "AnyStringYouWant"
+    {
+	"emailAddress": "user@example.com",
+	"usageId": "welcome-email-v21",
+	"applicationSecret": "AnyStringYouWant"
+    }
+   RESPONSE:
+    {
+        "emailAddress": "user@example.com",
+        "usageId": "welcome-email-v21",
+        "token": "fbc3fe93749a49fd8139eacf1241be8c"
+    }
+```
+3. Try these tests:
+- Invalid Email
+- Omit usageId
+- Omit appSecret
+
+## Discusion
+Application uses SpringBoot, the embeded in memory database w/JPA for persistence.  I added the Application Secret so tokens / redemptions may only be viewed by the creator.  The AppSecret is hashed and stored as a SHA-1 via the Apache Codec library, they are not persisted in plain text.  For security a service like this should only run HTTPS/TLS1.2 - but requirements asked for HTTP.
+
+The tokenID identifies a usage pattern and is defined entirely by the user.  A user may wish to know which tokens have been redeemed and which tokens have not.
+
+[TBD]
+When redeeming a token, a new row will be inserted into a second table recording the specific Token, the dateTime and the IpAddress.  A token redemption can be recorded multiple times, and will only insert more rows.  It is the responsibility of the Application in a higher layer to determine how to use that information (whether or not a token can be reused).  To redeem a token use
+[PUT] http://localhost:80/token/{token} and pass the token and include the AppSecret in the headers
+
+I did not get a chance to add tests yet.
+I did not get a chance to put this in a wrapper yet.
