@@ -43,12 +43,8 @@ Now view your token
   REQUEST 
   [GET] http://localhost:80/token/{token}
   [HEADER] applicationSecret = "AnyStringYouWant"
-    {
-	"emailAddress": "user@example.com",
-	"usageId": "welcome-email-v21",
-	"applicationSecret": "AnyStringYouWant"
-    }
-   RESPONSE:
+
+  RESPONSE:
     {
         "emailAddress": "user@example.com",
         "usageId": "welcome-email-v21",
