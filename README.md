@@ -61,7 +61,7 @@ Now view your token
 - Omit appSecret
 
 ## Discusion
-Application uses SpringBoot, the embeded in memory database w/JPA for persistence.  I added the Application Secret so tokens / redemptions may only be viewed by the creator.  The AppSecret is hashed and stored as a SHA-1 via the Apache Codec library, they are not persisted in plain text.  For security a service like this should only run HTTPS/TLS1.2 - but requirements asked for HTTP.
+Application uses Maven, SpringBoot, the embeded in memory database w/JPA for persistence.  I added the Application Secret so tokens / redemptions may only be viewed by the creator.  The AppSecret is hashed and stored as a SHA-1 via the Apache Codec library, they are not persisted in plain text.  For security a service like this should only run HTTPS/TLS1.2 - but requirements asked for HTTP.
 
 Validation: The application will ensure email addresses are valid using a compiled pattern that complies to the email RFC.  Errors will return a response entity that lets them know what caused the error.                   
 

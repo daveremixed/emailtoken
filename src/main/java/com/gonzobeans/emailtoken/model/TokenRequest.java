@@ -14,15 +14,15 @@ public class TokenRequest {
     @JsonProperty("emailAddress")
     private String emailAddress;
 
-    @JsonProperty("tokenId")
-    private String tokenId;
+    @JsonProperty("usageId")
+    private String usageId;
 
     public String getApplicationSecret() {
         return applicationSecret;
     }
 
-    public String getTokenId() {
-        return tokenId;
+    public String getUsageId() {
+        return usageId;
     }
 
     public String getEmailAddress() {

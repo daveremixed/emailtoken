@@ -35,7 +35,7 @@ public class TokenController {
         }
 
         Optional<Token> token =  tokenService.registerToken(request.getApplicationSecret(),
-                request.getTokenId(), request.getEmailAddress());
+                request.getUsageId(), request.getEmailAddress());
 
         if (token.isPresent()) {
            return new ResponseEntity<>(token.get(), HttpStatus.CREATED);
