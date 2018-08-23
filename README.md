@@ -69,7 +69,7 @@ The tokenID identifies a usage pattern and is defined entirely by the user.  A u
 
 ## TBD
 - I did not get a chance to add tests yet.
-- I did not get a chance to put this in a wrapper yet.
+- I did not get a chance to put this in a wrapper yet (With more time I would have used these instructions: https://spring.io/guides/gs/spring-boot-docker/)
 - I started but did not complete token redemption but it would go like this: When redeeming a token, a new row will be inserted into a second table recording the specific Token, the dateTime and the IpAddress.  A token redemption can be recorded multiple times, and will only insert more rows.  It is the responsibility of the Application in a higher layer to determine how to use that information (whether or not a token can be reused).  To redeem a token use
 [PUT] http://localhost:80/token/{token} and pass the token and include the AppSecret in the headers
 
