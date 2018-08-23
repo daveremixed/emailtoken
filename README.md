@@ -63,11 +63,13 @@ Now view your token
 ## Discusion
 Application uses SpringBoot, the embeded in memory database w/JPA for persistence.  I added the Application Secret so tokens / redemptions may only be viewed by the creator.  The AppSecret is hashed and stored as a SHA-1 via the Apache Codec library, they are not persisted in plain text.  For security a service like this should only run HTTPS/TLS1.2 - but requirements asked for HTTP.
 
+Validation: The application will ensure email addresses are valid using a compiled pattern that complies to the email RFC.  Errors will return a response entity that lets them know what caused the error.                   
+
 The tokenID identifies a usage pattern and is defined entirely by the user.  A user may wish to know which tokens have been redeemed and which tokens have not.
 
-[TBD]
-When redeeming a token, a new row will be inserted into a second table recording the specific Token, the dateTime and the IpAddress.  A token redemption can be recorded multiple times, and will only insert more rows.  It is the responsibility of the Application in a higher layer to determine how to use that information (whether or not a token can be reused).  To redeem a token use
+## TBD
+- I did not get a chance to add tests yet.
+- I did not get a chance to put this in a wrapper yet.
+- I started but did not complete token redemption but it would go like this: When redeeming a token, a new row will be inserted into a second table recording the specific Token, the dateTime and the IpAddress.  A token redemption can be recorded multiple times, and will only insert more rows.  It is the responsibility of the Application in a higher layer to determine how to use that information (whether or not a token can be reused).  To redeem a token use
 [PUT] http://localhost:80/token/{token} and pass the token and include the AppSecret in the headers
 
-I did not get a chance to add tests yet.
-I did not get a chance to put this in a wrapper yet.
